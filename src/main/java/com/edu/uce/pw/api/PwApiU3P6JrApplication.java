@@ -1,4 +1,5 @@
-package com.example.pw.pw_api_u3_p6_jr;
+package com.edu.uce.pw.api;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
