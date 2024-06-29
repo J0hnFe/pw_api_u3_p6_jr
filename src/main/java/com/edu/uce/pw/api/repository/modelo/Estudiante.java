@@ -40,4 +40,7 @@ public class Estudiante {
 
     @Column(name = "estu_fecha_apellido")
     private LocalDateTime fechaNacimiento;
+
+    @Column(name = "estu_genero")
+    private String genero;
 }
