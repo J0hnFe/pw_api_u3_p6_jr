@@ -1,8 +1,5 @@
 package com.edu.uce.pw.api.repository.modelo;
 
-
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,24 +20,24 @@ import lombok.Setter;
 @Setter
 
 @Entity
-@Table(name = "Estudiante")
-public class Estudiante {
+@Table(name = "Materia")
+public class Materia {
 
     @Id
-    @GeneratedValue(generator = "seq_estudiante", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "seq_estudiante", sequenceName = "seq_estudiante", allocationSize = 1)
-    @Column(name = "estu_id")
+    @GeneratedValue(generator = "seq_materia", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seq_materia", sequenceName = "seq_materia", allocationSize = 1)
+    @Column(name = "materia_id")
     private Integer id;
 
-    @Column(name = "estu_nombre")
+    @Column(name = "materia_nombre")
     private String nombre;
 
-    @Column(name = "estu_apellido")
-    private String apellido;
+    @Column(name = "materia_creditos")
+    private Integer creditos;
 
-    @Column(name = "estu_fecha_apellido")
-    private LocalDateTime fechaNacimiento;
+    @Column(name = "materia_ced_profesor")
+    private String ced_profesor;
 
-    @Column(name = "estu_genero")
-    private String genero;
+    @Column(name = "materia_nivel")
+    private Integer nivel;
 }
