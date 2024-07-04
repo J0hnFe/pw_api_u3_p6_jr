@@ -43,11 +43,9 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository{
 
 	@Override
 	public List<Estudiante> seleccionarPorGenero(String genero) {
-		String jpql = "SELECT e FROM Estudiante e WHERE e.genero = genero";
+		String jpql = "SELECT e FROM Estudiante e WHERE e.genero =: genero";
 		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery(jpql, Estudiante.class);
 		myQuery.setParameter("genero", genero);
 		return myQuery.getResultList();
 	}
-	
- 
 }

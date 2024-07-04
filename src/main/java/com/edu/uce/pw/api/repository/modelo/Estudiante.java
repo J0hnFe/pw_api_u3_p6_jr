@@ -38,7 +38,7 @@ public class Estudiante {
     @Column(name = "estu_apellido")
     private String apellido;
 
-    @Column(name = "estu_fecha_apellido")
+    @Column(name = "estu_fecha_nacimiento")
     private LocalDateTime fechaNacimiento;
 
     @Column(name = "estu_genero")
