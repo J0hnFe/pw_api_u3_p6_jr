@@ -43,4 +43,12 @@ public class Estudiante {
 
     @Column(name = "estu_genero")
     private String genero;
+
+    @Override
+    public String toString() {
+        return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
+                + fechaNacimiento + ", genero=" + genero + "]";
+    }
+
+    
 }
