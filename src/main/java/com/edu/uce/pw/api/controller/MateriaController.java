@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.uce.pw.api.repository.modelo.Materia;
@@ -32,21 +33,23 @@ public class MateriaController {
 }
      */
     
-    // http://localhost:8080/API/v1.0/Matricula/materias/guardar
-    @PostMapping(path = "/guardar")
+    // http://localhost:8080/API/v1.0/Matricula/materias
+    @PostMapping
     public void guardar(@RequestBody Materia mat) {
         this.materiaService.guardar(mat);
     }
 
-    // http://localhost:8080/API/v1.0/Matricula/materias/actualizar
-    @PutMapping(path = "/actualizar")
-    public void actualizar(@RequestBody Materia mat) {
+    // http://localhost:8080/API/v1.0/Matricula/materias/1
+    @PutMapping
+    public void actualizar(@RequestBody Materia mat, @PathVariable Integer id) {
+        mat.setId(id);
         this.materiaService.actualizar(mat);
     }
 
-    // http://localhost:8080/API/v1.0/Matricula/materias/actualizarParcial
-    @PatchMapping(path = "/actualizarParcial")
-    public void actualizaParcial(@RequestBody Materia mat) {
+    // http://localhost:8080/API/v1.0/Matricula/materias/1
+    @PatchMapping(path = "/{id}")
+    public void actualizaParcial(@RequestBody Materia mat, @PathVariable Integer id) {
+        mat.setId(id);
         Materia mat2 = this.materiaService.buscar(mat.getId());
         if (mat.getNombre() != null) {
             mat2.setNombre(mat.getNombre());
@@ -60,21 +63,21 @@ public class MateriaController {
         this.materiaService.actualizar(mat2);
     }
 
-    // http://localhost:8080/API/v1.0/Matricula/materias/borrar/1
-    @DeleteMapping(path = "/borrar/{id}")
+    // http://localhost:8080/API/v1.0/Matricula/materias/1
+    @DeleteMapping(path = "/{id}")
     public void eliminar(@PathVariable Integer id) {
         this.materiaService.borrar(1);
     }
 
-    // http://localhost:8080/API/v1.0/Matricula/materias/buscar/1/nuevo
-    @GetMapping(path = "/buscar/{id}/nuevo")
-    public Materia buscar(@PathVariable Integer id) {
+    // http://localhost:8080/API/v1.0/Matricula/materias/1
+    @GetMapping(path = "/{id}")
+    public Materia buscarPorId(@RequestParam Integer id) {
         return this.materiaService.buscar(id);
     }
 
-    // http://localhost:8080/API/v1.0/Matricula/materias/buscarPorNivel/1
-    @GetMapping(path = "/buscarPorNivel/{nivel}")
-    public List<Materia> buscarPorNivel(@PathVariable Integer nivel) {
+    // http://localhost:8080/API/v1.0/Matricula/materias/nivel?nivel=1
+    @GetMapping(path = "/nivel")
+    public List<Materia> buscarPorNivel(@RequestParam Integer nivel) {
         List<Materia> materias = this.materiaService.buscarPorNivel(nivel);
         return materias;
     }
