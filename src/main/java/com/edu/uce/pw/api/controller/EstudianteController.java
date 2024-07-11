@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +29,12 @@ public class EstudianteController {
 
 	/*
 	 * 
-	  {
-	  "nombre": "Jorge",
-	  "apellido": "Benalcazar",
-	  "fechaNacimiento": "1999-01-01T01:01:01",
-	  "genero": null
-	  }
+	 * {
+	 * "nombre": "Jorge",
+	 * "apellido": "Benalcazar",
+	 * "fechaNacimiento": "1999-01-01T01:01:01",
+	 * "genero": null
+	 * }
 	 */
 
 	@Autowired
@@ -82,11 +83,16 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
-		this.estudianteService.buscar(id);
-		return ResponseEntity.status(236).body(this.estudianteService.buscar(id));
+		// this.estudianteService.buscar(id);
+		// return ResponseEntity.status(236).body(this.estudianteService.buscar(id));
+		// HttpHeaders de spring framework
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso");
+		cabeceras.add("valor", "estu encontrado");
+		return new ResponseEntity<>(this.estudianteService.buscar(id), cabeceras, 236);
 	}
 
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscarPorGenero?genero=F
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/genero?genero=F
 	@GetMapping(path = "/genero")
 	public List<Estudiante> buscarPorGenero(@RequestParam String genero) {
 		List<Estudiante> ls = this.estudianteService.buscarPorGenero(genero);
