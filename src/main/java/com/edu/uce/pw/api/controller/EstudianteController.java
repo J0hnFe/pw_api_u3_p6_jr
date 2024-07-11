@@ -76,6 +76,7 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<String> borrar(@PathVariable Integer id) {
+		// test
 		this.estudianteService.borrar(id);
 		return ResponseEntity.status(240).body("Estudiante eliminado");
 	}
