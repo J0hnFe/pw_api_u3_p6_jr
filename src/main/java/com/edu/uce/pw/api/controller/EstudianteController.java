@@ -1,10 +1,11 @@
 package com.edu.uce.pw.api.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.uce.pw.api.repository.modelo.Estudiante;
 import com.edu.uce.pw.api.service.IEstudianteService;
-
-import io.micrometer.core.ipc.http.HttpSender.Response;
 
 @RestController
 @RequestMapping(path = "/estudiantes")
@@ -41,14 +40,13 @@ public class EstudianteController {
 	private IEstudianteService estudianteService;
 
 	// Nivel1: http://localhost:8080/API/v1.0/Matricula/estudiantes
-	@PostMapping
-	public ResponseEntity<String> guardar(@RequestBody Estudiante est) {
-		this.estudianteService.guardar(est);
-		return ResponseEntity.status(201).body("Prueba post");
+	@PostMapping(produces = "application/json", consumes = "application/xml")
+	public ResponseEntity<Estudiante> guardar(@RequestBody Estudiante est) {
+		return ResponseEntity.status(HttpStatus.OK).body(est);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@PutMapping(path = "/{id}")
+	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante est, @PathVariable Integer id) {
 		est.setId(id);
 		this.estudianteService.actualizar(est);
@@ -56,7 +54,7 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@PatchMapping(path = "/{id}")
+	@PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Estudiante> actualizarParcial(@RequestBody Estudiante est, @PathVariable Integer id) {
 		est.setId(id);
 		Estudiante est2 = this.estudianteService.buscar(est.getId());
@@ -74,14 +72,14 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> borrar(@PathVariable Integer id) {
 		this.estudianteService.borrar(id);
 		return ResponseEntity.status(240).body("Estudiante eliminado");
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = "application/xml")
 	public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
 		// this.estudianteService.buscar(id);
 		// return ResponseEntity.status(236).body(this.estudianteService.buscar(id));
@@ -93,14 +91,14 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/genero?genero=F
-	@GetMapping(path = "/genero")
+	@GetMapping(path = "/genero", produces = "application/xml")
 	public List<Estudiante> buscarPorGenero(@RequestParam String genero) {
 		List<Estudiante> ls = this.estudianteService.buscarPorGenero(genero);
 		return ls;
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/mixto/1
-	@GetMapping(path = "/mixto/{id}")
+	@GetMapping(path = "/mixto/{id}", produces = "application/xml")
 	public Estudiante buscarMixto(@PathVariable Integer id, @RequestParam String prueba) {
 		// System.out.println("dato: " + id);
 		// System.out.println("dato: " + prueba);
@@ -112,5 +110,12 @@ public class EstudianteController {
 	public Estudiante test(@PathVariable Integer id, @RequestBody Estudiante e) {
 		System.out.println(e);
 		return this.estudianteService.buscar(id);
+	}
+
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/texto/plano
+	@GetMapping(path = "/texto/plano")
+	public String prueba() {
+		String prueba = "texto de prueba";
+		return prueba;
 	}
 }
