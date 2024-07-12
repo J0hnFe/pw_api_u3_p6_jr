@@ -2,6 +2,9 @@ package com.edu.uce.pw.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,32 +38,23 @@ public class MateriaController {
      */
 
     // http://localhost:8080/API/v1.0/Matricula/materias
-    @PostMapping
-    public ResponseEntity<String> guardar(@RequestBody Materia mat) {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Materia> guardar(@RequestBody Materia mat) {
         this.materiaService.guardar(mat);
-        // return ResponseEntity.status(201).body("Materia creada");
-
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("mensaje_238", "Cabecera test");
-        return new ResponseEntity<>(mat.toString(), cabeceras, 238);
+        return ResponseEntity.status(HttpStatus.OK).body(mat);
     }
 
     // http://localhost:8080/API/v1.0/Matricula/materias/1
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<String> actualizar(@RequestBody Materia mat, @PathVariable Integer id) {
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Materia> actualizar(@RequestBody Materia mat, @PathVariable Integer id) {
         mat.setId(id);
         this.materiaService.actualizar(mat);
-        // return ResponseEntity.status(238).body(mat);
-
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("mensaje_238", "Cabecera test");
-        return new ResponseEntity<>("Actualizar", cabeceras, 238);
-
+        return ResponseEntity.status(HttpStatus.OK).body(mat);
     }
 
     // http://localhost:8080/API/v1.0/Matricula/materias/1
-    @PatchMapping(path = "/{id}")
-    public ResponseEntity<String> actualizaParcial(@RequestBody Materia mat, @PathVariable Integer id) {
+    @PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Materia> actualizaParcial(@RequestBody Materia mat, @PathVariable Integer id) {
         mat.setId(id);
         Materia mat2 = this.materiaService.buscar(mat.getId());
         if (mat.getNombre() != null) {
@@ -77,33 +71,27 @@ public class MateriaController {
         }
 
         this.materiaService.actualizar(mat2);
-
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("mensaje_239", "Cabecera test");
-        return new ResponseEntity<>("ActualizarParcial", cabeceras, 239);
+        return ResponseEntity.status(HttpStatus.OK).body(mat2);
     }
 
     // http://localhost:8080/API/v1.0/Matricula/materias/1
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> eliminar(@PathVariable Integer id) {
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("mensaje_240", "Cabecera Estudiante eliminado");
-        return new ResponseEntity<>("eliminado", cabeceras, 240);
+        this.materiaService.borrar(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Registro eliminado");
     }
 
     // http://localhost:8080/API/v1.0/Matricula/materias/1
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Materia> buscarPorId(@PathVariable Integer id) {
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("mensaje_236", "Cabecera test");
-        return new ResponseEntity<>(this.materiaService.buscar(id), cabeceras, 236);
+        this.materiaService.buscar(id);
+        return ResponseEntity.status(HttpStatus.OK).body(this.materiaService.buscar(id));
     }
 
     // http://localhost:8080/API/v1.0/Matricula/materias/nivel?nivel=1
-    @GetMapping(path = "/nivel")
-    public ResponseEntity<List<Materia>> buscarPorNivel(@RequestParam Integer nivel) {
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("mensaje_236", "Cabecera test");
-        return new ResponseEntity<>(this.materiaService.buscarPorNivel(nivel), cabeceras, 236);
+    @GetMapping(path = "/nivel", produces = MediaType.APPLICATION_XML_VALUE)
+    public List<Materia> buscarPorNivel(@RequestParam Integer nivel) {
+        List<Materia> materias = this.materiaService.buscarPorNivel(nivel);
+        return materias;
     }
 }

@@ -10,5 +10,4 @@ public class PwApiU3P6JrApplication{
 	public static void main(String[] args) {
 		SpringApplication.run(PwApiU3P6JrApplication.class, args);
 	}
-
 }
