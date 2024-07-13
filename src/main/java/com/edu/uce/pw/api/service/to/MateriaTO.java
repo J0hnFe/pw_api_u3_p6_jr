@@ -3,6 +3,8 @@ package com.edu.uce.pw.api.service.to;
 import java.io.Serializable;
 
 public class MateriaTO implements Serializable{
+
+    private static final long serialVersionUID = 1683355650124783603L;
     
     private Integer id;
     private String nombre;

@@ -86,7 +86,7 @@ public class EstudianteController {
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	@GetMapping(path = "/{id}", produces = "application/xml")
-	public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Estudiante> buscarPorId(@PathVariable("id") Integer id) {
 		// this.estudianteService.buscar(id);
 		// return ResponseEntity.status(236).body(this.estudianteService.buscar(id));
 		// HttpHeaders de spring framework
@@ -127,11 +127,10 @@ public class EstudianteController {
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/hateoas/1
 	@GetMapping(path = "/hateoas/{id}")
-	public EstudianteTO buscarHateoas(@PathVariable Integer id) {
-		EstudianteTO e = this.estudianteService.buscarPorId(id);
-		List<MateriaTO> materias = this.materiaService.buscarPorIdEstudiante(id);
-		e.setMaterias(materias);
-		
-		return e;
+	public EstudianteTO buscarHateoas(@PathVariable("id") Integer id) {
+		EstudianteTO estudianteTO = this.estudianteService.buscarPorId(id);
+		List<MateriaTO> ls = this.materiaService.buscarPorIdEstudiante(id);
+		estudianteTO.setMaterias(ls);
+		return estudianteTO;
 	}
 }

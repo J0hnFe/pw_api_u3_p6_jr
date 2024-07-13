@@ -4,9 +4,9 @@ import java.util.List;
 import com.edu.uce.pw.api.repository.modelo.Materia;
 
 public interface IMateriaRepository {
-    Materia seleccionar(Integer id);
-    void actualizar(Materia mat);
-    void eliminar(Integer id);
-    void insertar(Materia mat);
-    List<Materia> seleccionarPorIdEstudiante(Integer idEstudiante);
+    public Materia seleccionar(Integer id);
+    public void actualizar(Materia mat);
+    public void eliminar(Integer id);
+    public void insertar(Materia mat);
+    public List<Materia> seleccionarPorIdEstudiante(Integer idEstudiante);
 }

@@ -16,5 +16,5 @@ public interface IEstudianteService {
 
     public void guardar(Estudiante estudiante);
 
-    List<Estudiante> buscarPorGenero(String genero);
+    public List<Estudiante> buscarPorGenero(String genero);
 }

@@ -14,6 +14,6 @@ public interface IMateriaService {
 
     public void guardar(Materia materia);
 
-    List<MateriaTO> buscarPorIdEstudiante(Integer idEstudiante);
+    public List<MateriaTO> buscarPorIdEstudiante(Integer idEstudiante);
 
 }

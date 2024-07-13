@@ -56,5 +56,4 @@ public class MateriaServiceImpl implements IMateriaService {
 
         return listaFinal;
     }
-
 }
