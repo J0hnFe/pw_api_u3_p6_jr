@@ -2,12 +2,14 @@ package com.edu.uce.pw.api.repository.modelo;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -44,11 +46,13 @@ public class Estudiante {
     @Column(name = "estu_genero")
     private String genero;
 
+    @OneToMany(mappedBy = "estudiante")
+    private List<Materia> materias;
+
     @Override
     public String toString() {
         return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
                 + fechaNacimiento + ", genero=" + genero + "]";
     }
 
-    
 }

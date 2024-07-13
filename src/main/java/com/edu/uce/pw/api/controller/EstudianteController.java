@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.uce.pw.api.repository.modelo.Estudiante;
 import com.edu.uce.pw.api.service.IEstudianteService;
+import com.edu.uce.pw.api.service.IMateriaService;
+import com.edu.uce.pw.api.service.to.EstudianteTO;
+import com.edu.uce.pw.api.service.to.MateriaTO;
 
 @RestController
 @RequestMapping(path = "/estudiantes")
@@ -38,6 +41,9 @@ public class EstudianteController {
 
 	@Autowired
 	private IEstudianteService estudianteService;
+
+	@Autowired
+	private IMateriaService materiaService;
 
 	// Nivel1: http://localhost:8080/API/v1.0/Matricula/estudiantes
 	@PostMapping(produces = "application/json", consumes = "application/xml")
@@ -117,5 +123,15 @@ public class EstudianteController {
 	public String prueba() {
 		String prueba = "texto de prueba";
 		return prueba;
+	}
+
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/hateoas/1
+	@GetMapping(path = "/hateoas/{id}")
+	public EstudianteTO buscarHateoas(@PathVariable Integer id) {
+		EstudianteTO e = this.estudianteService.buscarPorId(id);
+		List<MateriaTO> materias = this.materiaService.buscarPorIdEstudiante(id);
+		e.setMaterias(materias);
+		
+		return e;
 	}
 }
