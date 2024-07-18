@@ -1,5 +1,7 @@
 package com.edu.uce.pw.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.uce.pw.api.repository.modelo.Materia;
 import com.edu.uce.pw.api.service.IMateriaService;
+import com.edu.uce.pw.api.service.to.MateriaTO;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -76,5 +80,11 @@ public class MateriaController {
         this.materiaService.buscar(id);
         return ResponseEntity.status(HttpStatus.OK).body(this.materiaService.buscar(id));
     }
+
+    	// GET: http://localhost:8080/API/v1.0/Matricula/materias/2/materias 
+	@GetMapping(path = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<MateriaTO> buscarMateriasPorEstudiante(@PathVariable("id") Integer id) {
+		return this.materiaService.buscarPorIdEstudiante(id);
+	}
 
 }

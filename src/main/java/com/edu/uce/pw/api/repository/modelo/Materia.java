@@ -1,5 +1,7 @@
 package com.edu.uce.pw.api.repository.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Materia")
+@JsonIgnoreProperties(value = "estudiante") // Evita dependencia cíclica, recursividad
 public class Materia {
 
     @Id

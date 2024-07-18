@@ -4,6 +4,8 @@ package com.edu.uce.pw.api.repository.modelo;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Estudiante")
+@JsonIgnoreProperties(value = "materias") // Evita la dependencia cíclica, recursividad
 public class Estudiante {
 
     @Id
