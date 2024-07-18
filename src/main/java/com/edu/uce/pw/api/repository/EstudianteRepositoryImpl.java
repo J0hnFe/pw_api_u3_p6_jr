@@ -48,4 +48,11 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository{
 		myQuery.setParameter("genero", genero);
 		return myQuery.getResultList();
 	}
+
+	@Override
+	public List<Estudiante> seleccionarTodos() {
+		String jpql = "SELECT e FROM Estudiante e";
+		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery(jpql, Estudiante.class);
+		return myQuery.getResultList();
+	}
 }

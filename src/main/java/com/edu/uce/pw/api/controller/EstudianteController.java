@@ -139,22 +139,35 @@ public class EstudianteController {
 		// List<MateriaTO> ls = this.materiaService.buscarPorIdEstudiante(id);
 		// estudianteTO.setMaterias(ls);
 
-
 		// Dentro de methodOn, clase q tiene la capacidad
 		Link myLink = linkTo(methodOn(EstudianteController.class)
-		.buscarMateriasPorEstudiante(id))
-		.withRel("susMaterias");
+				.buscarMateriasPorEstudiante(id))
+				.withRel("susMaterias");
 
 		Link myLink2 = linkTo(methodOn(EstudianteController.class)
-		.buscarPorId(id))
-		.withSelfRel();
-		
+				.buscarPorId(id))
+				.withSelfRel();
+
 		estudianteTO.add(myLink);
 		estudianteTO.add(myLink2);
 		return estudianteTO;
 	}
 
-	// GET: http://localhost:8080/API/v1.0/Matricula/estudiantes/2/materias 
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/all
+	@GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<EstudianteTO> listar() {
+		List<EstudianteTO> estudiantes = this.estudianteService.buscarTodos();
+
+		estudiantes.forEach(x -> {
+			Link myLink = linkTo(methodOn(EstudianteController.class)
+					.buscarMateriasPorEstudiante(x.getId()))
+					.withRel("materias de estudiante");
+			x.add(myLink);
+		});
+		return estudiantes;
+	}
+
+	// GET: http://localhost:8080/API/v1.0/Matricula/estudiantes/2/materias
 	@GetMapping(path = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MateriaTO> buscarMateriasPorEstudiante(@PathVariable("id") Integer id) {
 		return this.materiaService.buscarPorIdEstudiante(id);
