@@ -17,8 +17,8 @@ public class EstudianteServiceImpl implements IEstudianteService {
     private IEstudianteRepository estudianteRepository;
 
     @Override
-    public Estudiante buscar(Integer id) {
-        return this.estudianteRepository.seleccionar(id);
+    public Estudiante buscar(String cedula) {
+        return this.estudianteRepository.seleccionar(cedula);
     }
 
     @Override
@@ -27,8 +27,8 @@ public class EstudianteServiceImpl implements IEstudianteService {
     }
 
     @Override
-    public void borrar(Integer id) {
-        this.estudianteRepository.eliminar(id);
+    public void borrar(String cedula) {
+        this.estudianteRepository.eliminar(cedula);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class EstudianteServiceImpl implements IEstudianteService {
     }
 
     @Override
-    public EstudianteTO buscarPorId(Integer id) {
-        Estudiante e = this.estudianteRepository.seleccionar(id);
+    public EstudianteTO buscarPorCedula(String cedula) {
+        Estudiante e = this.estudianteRepository.seleccionar(cedula);
         return this.convertir(e);
     }
 

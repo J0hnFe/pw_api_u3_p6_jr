@@ -27,34 +27,38 @@ public class PwApiU3P6JrApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Materia mat1 = Materia.builder().nombre("Matematicas").creditos(10).build();
-		Materia mat2 = Materia.builder().nombre("Fisica").creditos(8).build();
-		Materia mat3 = Materia.builder().nombre("Quimica").creditos(6).build();
-		Materia mat4 = Materia.builder().nombre("Biologia").creditos(4).build();
+		// Estudiante est1 = Estudiante.builder()
+		// 		.nombre("Juan")
+		// 		.apellido("Perez")
+		// 		.cedula("1111")
+		// 		.fechaNacimiento(LocalDateTime.now())
+		// 		.genero("M").build();
 
-		Estudiante est1 = Estudiante.builder()
-				.nombre("Juan")
-				.apellido("Perez")
-				.fechaNacimiento(LocalDateTime.now())
-				.genero("M").build();
+		// Estudiante est2 = Estudiante.builder()
+		// 		.nombre("Maria")
+		// 		.apellido("Gomez")
+		// 		.cedula("2222")
+		// 		.fechaNacimiento(LocalDateTime.now())
+		// 		.genero("F").build();
 
-		Estudiante est2 = Estudiante.builder()
-				.nombre("Maria")
-				.apellido("Gomez")
-				.fechaNacimiento(LocalDateTime.now())
-				.genero("F").build();
+		// Estudiante est3 = Estudiante.builder()
+		// 		.nombre("Pedro")
+		// 		.apellido("Garcia")
+		// 		.cedula("3333")
+		// 		.fechaNacimiento(LocalDateTime.now())
+		// 		.genero("M").build();
 
-		Estudiante est3 = Estudiante.builder()
-				.nombre("Pedro")
-				.apellido("Garcia")
-				.fechaNacimiento(LocalDateTime.now())
-				.genero("M").build();
+		// Estudiante est4 = Estudiante.builder()
+		// 		.nombre("Ana")
+		// 		.apellido("Lopez")
+		// 		.cedula("4444")
+		// 		.fechaNacimiento(LocalDateTime.now())
+		// 		.genero("F").build();
 
-		Estudiante est4 = Estudiante.builder()
-				.nombre("Ana")
-				.apellido("Lopez")
-				.fechaNacimiento(LocalDateTime.now())
-				.genero("F").build();
+		// Materia mat1 = Materia.builder().nombre("Matematicas").creditos(10).build();
+		// Materia mat2 = Materia.builder().nombre("Fisica").creditos(8).build();
+		// Materia mat3 = Materia.builder().nombre("Quimica").creditos(6).build();
+		// Materia mat4 = Materia.builder().nombre("Biologia").creditos(4).build();
 
 		// materiaService.guardar(mat1);
 		// materiaService.guardar(mat2);

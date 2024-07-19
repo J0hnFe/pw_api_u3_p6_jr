@@ -20,8 +20,8 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository{
 	
 	
 	@Override
-	public Estudiante seleccionar(Integer id) {
-		return this.entityManager.find(Estudiante.class, id);
+	public Estudiante seleccionar(String cedula) {
+		return this.entityManager.find(Estudiante.class, cedula);
 	}
  
 	@Override
@@ -31,8 +31,8 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository{
 	}
  
 	@Override
-	public void eliminar(Integer id) {		
-		this.entityManager.remove(this.seleccionar(id));
+	public void eliminar(String cedula) {		
+		this.entityManager.remove(this.seleccionar(cedula));
 	}
  
 	@Override

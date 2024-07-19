@@ -57,18 +57,48 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante est, @PathVariable Integer id) {
-		est.setId(id);
+	// @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,
+	// consumes = MediaType.APPLICATION_XML_VALUE)
+	// public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante est,
+	// @PathVariable Integer id) {
+	// est.setId(id);
+	// this.estudianteService.actualizar(est);
+	// return ResponseEntity.status(238).body(est);
+	// }
+
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/web/1111
+	@PutMapping(path = "/web/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante est, @PathVariable String cedula) {
+		est.setCedula(cedula);
 		this.estudianteService.actualizar(est);
 		return ResponseEntity.status(238).body(est);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Estudiante> actualizarParcial(@RequestBody Estudiante est, @PathVariable Integer id) {
-		est.setId(id);
-		Estudiante est2 = this.estudianteService.buscar(est.getId());
+	// @PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,
+	// consumes = MediaType.APPLICATION_XML_VALUE)
+	// public ResponseEntity<Estudiante> actualizarParcial(@RequestBody Estudiante
+	// est, @PathVariable Integer id) {
+	// est.setId(id);
+	// Estudiante est2 = this.estudianteService.buscar(est.getId());
+	// if (est.getNombre() != null) {
+	// est2.setNombre(est.getNombre());
+	// }
+	// if (est.getApellido() != null) {
+	// est2.setApellido(est.getApellido());
+	// }
+	// if (est.getFechaNacimiento() != null) {
+	// est2.setFechaNacimiento(est.getFechaNacimiento());
+	// }
+	// this.estudianteService.actualizar(est2);
+	// return ResponseEntity.status(239).body(est2);
+	// }
+
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/web/1111
+	@PatchMapping(path = "/web/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<Estudiante> actualizarParcial(@RequestBody Estudiante est, @PathVariable String cedula) {
+		est.setCedula(cedula);
+		Estudiante est2 = this.estudianteService.buscar(est.getCedula());
 		if (est.getNombre() != null) {
 			est2.setNombre(est.getNombre());
 		}
@@ -83,22 +113,40 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> borrar(@PathVariable Integer id) {
-		this.estudianteService.borrar(id);
+	// @DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+	// public ResponseEntity<String> borrar(@PathVariable Integer id) {
+	// this.estudianteService.borrar(id);
+	// return ResponseEntity.status(240).body("Estudiante eliminado");
+	// }
+
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/web/1111
+	@DeleteMapping(path = "/{cedula}", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> borrar(@PathVariable String cedula) {
+		this.estudianteService.borrar(cedula);
 		return ResponseEntity.status(240).body("Estudiante eliminado");
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	@GetMapping(path = "/{id}", produces = "application/json")
-	public ResponseEntity<Estudiante> buscarPorId(@PathVariable("id") Integer id) {
-		// this.estudianteService.buscar(id);
-		// return ResponseEntity.status(236).body(this.estudianteService.buscar(id));
-		// HttpHeaders de spring framework
+	// @GetMapping(path = "/{id}", produces = "application/json")
+	// public ResponseEntity<Estudiante> buscarPorId(@PathVariable("id") Integer id)
+	// {
+	// // this.estudianteService.buscar(id);
+	// // return ResponseEntity.status(236).body(this.estudianteService.buscar(id));
+	// // HttpHeaders de spring framework
+	// HttpHeaders cabeceras = new HttpHeaders();
+	// cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso");
+	// cabeceras.add("valor", "estu encontrado");
+	// return new ResponseEntity<>(this.estudianteService.buscar(id), cabeceras,
+	// 236);
+	// }
+
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
+	@GetMapping(path = "/web/{cedula}", produces = "application/json")
+	public ResponseEntity<Estudiante> buscarPorCedula(@PathVariable("cedula") String cedula) {
 		HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso");
 		cabeceras.add("valor", "estu encontrado");
-		return new ResponseEntity<>(this.estudianteService.buscar(id), cabeceras, 236);
+		return new ResponseEntity<>(this.estudianteService.buscar(cedula), cabeceras, 236);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/genero?genero=F
@@ -109,19 +157,20 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/mixto/1
-	@GetMapping(path = "/mixto/{id}", produces = "application/xml")
-	public Estudiante buscarMixto(@PathVariable Integer id, @RequestParam String prueba) {
-		// System.out.println("dato: " + id);
-		// System.out.println("dato: " + prueba);
-		return this.estudianteService.buscar(id);
-	}
+	// @GetMapping(path = "/mixto/{id}", produces = "application/xml")
+	// public Estudiante buscarMixto(@PathVariable Integer id, @RequestParam String
+	// prueba) {
+	// // System.out.println("dato: " + id);
+	// // System.out.println("dato: " + prueba);
+	// return this.estudianteService.buscar(id);
+	// }
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/test/1
-	@GetMapping(path = "/test/{id}")
-	public Estudiante test(@PathVariable Integer id, @RequestBody Estudiante e) {
-		System.out.println(e);
-		return this.estudianteService.buscar(id);
-	}
+	// @GetMapping(path = "/test/{id}")
+	// public Estudiante test(@PathVariable Integer id, @RequestBody Estudiante e) {
+	// System.out.println(e);
+	// return this.estudianteService.buscar(id);
+	// }
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/texto/plano
 	@GetMapping(path = "/texto/plano")
@@ -131,45 +180,27 @@ public class EstudianteController {
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/hateoas/1
-	@GetMapping(path = "/hateoas/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public EstudianteTO buscarHateoas(@PathVariable("id") Integer id) {
-		EstudianteTO estudianteTO = this.estudianteService.buscarPorId(id);
+	// @GetMapping(path = "/hateoas/{id}", produces =
+	// MediaType.APPLICATION_JSON_VALUE)
+	// public EstudianteTO buscarHateoas(@PathVariable("id") Integer id) {
+	// EstudianteTO estudianteTO = this.estudianteService.buscarPorId(id);
 
-		// Error: carga eager
-		// List<MateriaTO> ls = this.materiaService.buscarPorIdEstudiante(id);
-		// estudianteTO.setMaterias(ls);
+	// // Error: carga eager
+	// // List<MateriaTO> ls = this.materiaService.buscarPorIdEstudiante(id);
+	// // estudianteTO.setMaterias(ls);
 
-		// Dentro de methodOn, clase q tiene la capacidad
-		Link myLink = linkTo(methodOn(EstudianteController.class)
-				.buscarMateriasPorEstudiante(id))
-				.withRel("susMaterias");
+	// // Dentro de methodOn, clase q tiene la capacidad
+	// Link myLink = linkTo(methodOn(EstudianteController.class)
+	// .buscarMateriasPorEstudiante(id))
+	// .withRel("susMaterias");
 
-		Link myLink2 = linkTo(methodOn(EstudianteController.class)
-				.buscarPorId(id))
-				.withSelfRel();
+	// Link myLink2 = linkTo(methodOn(EstudianteController.class)
+	// .buscarPorId(id))
+	// .withSelfRel();
 
-		estudianteTO.add(myLink);
-		estudianteTO.add(myLink2);
-		return estudianteTO;
-	}
+	// estudianteTO.add(myLink);
+	// estudianteTO.add(myLink2);
+	// return estudianteTO;
+	// }
 
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes/all
-	@GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<EstudianteTO> listar() {
-		List<EstudianteTO> estudiantes = this.estudianteService.buscarTodos();
-
-		estudiantes.forEach(x -> {
-			Link myLink = linkTo(methodOn(EstudianteController.class)
-					.buscarMateriasPorEstudiante(x.getId()))
-					.withRel("materias de estudiante");
-			x.add(myLink);
-		});
-		return estudiantes;
-	}
-
-	// GET: http://localhost:8080/API/v1.0/Matricula/estudiantes/2/materias
-	@GetMapping(path = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MateriaTO> buscarMateriasPorEstudiante(@PathVariable("id") Integer id) {
-		return this.materiaService.buscarPorIdEstudiante(id);
-	}
 }

@@ -40,6 +40,9 @@ public class Estudiante {
     @Column(name = "estu_nombre")
     private String nombre;
 
+    @Column(name = "estu_cedula")
+    private String cedula;
+
     @Column(name = "estu_apellido")
     private String apellido;
 
@@ -54,8 +57,8 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
-                + fechaNacimiento + ", genero=" + genero + "]";
+        return "Estudiante [id=" + id + ", nombre=" + nombre + ", cedula=" + cedula + ", apellido=" + apellido
+                + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + "]";
     }
 
 }
