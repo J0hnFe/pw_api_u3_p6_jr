@@ -21,13 +21,15 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository{
 	
 	@Override
 	public Estudiante seleccionar(String cedula) {
-		return this.entityManager.find(Estudiante.class, cedula);
+		String jpql = "SELECT e FROM Estudiante e WHERE e.cedula =: cedula";
+		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery(jpql, Estudiante.class);
+		myQuery.setParameter("cedula", cedula);
+		return myQuery.getSingleResult();
 	}
  
 	@Override
 	public void actualizar(Estudiante estudiante) {
 		this.entityManager.merge(estudiante);
-		
 	}
  
 	@Override
