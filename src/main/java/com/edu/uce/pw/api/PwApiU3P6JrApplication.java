@@ -5,11 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.edu.uce.pw.api.repository.modelo.Estudiante;
-import com.edu.uce.pw.api.repository.modelo.Materia;
 import com.edu.uce.pw.api.service.EstudianteServiceImpl;
 import com.edu.uce.pw.api.service.MateriaServiceImpl;
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class PwApiU3P6JrApplication implements CommandLineRunner {

@@ -3,11 +3,11 @@ package com.edu.uce.pw.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,14 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edu.uce.pw.api.repository.modelo.Estudiante;
 import com.edu.uce.pw.api.service.IEstudianteService;
 import com.edu.uce.pw.api.service.IMateriaService;
-import com.edu.uce.pw.api.service.to.EstudianteTO;
-import com.edu.uce.pw.api.service.to.MateriaTO;
-
-// Imports estáticos
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@CrossOrigin(value = "http://localhost:8081") // Vue está en ese puerto, so le permito a este proyecto que se conecte
 @RequestMapping(path = "/estudiantes")
 
 public class EstudianteController {
@@ -66,8 +61,8 @@ public class EstudianteController {
 	// return ResponseEntity.status(238).body(est);
 	// }
 
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes/web/1111
-	@PutMapping(path = "/web/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/web/1
+	@PutMapping(path = "/web/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante est, @PathVariable String cedula) {
 		est.setCedula(cedula);
 		this.estudianteService.actualizar(est);
@@ -140,7 +135,7 @@ public class EstudianteController {
 	// 236);
 	// }
 
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/web/1
 	@GetMapping(path = "/web/{cedula}", produces = "application/json")
 	public ResponseEntity<Estudiante> buscarPorCedula(@PathVariable("cedula") String cedula) {
 		HttpHeaders cabeceras = new HttpHeaders();
